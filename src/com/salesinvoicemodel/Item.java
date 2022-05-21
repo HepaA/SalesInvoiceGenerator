@@ -5,42 +5,42 @@
  */
 package com.salesinvoicemodel;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
 /**
  *
  * @author Heba
  */
-public class Line {
+public class Item {
     
    
     private String Item;
-    private double Price;
-    private int Count;
+    private double Fees;
+    private int Countt;
     private Invoice invoice;
-    private ArrayList <Line> lines;
+    //private ArrayList <Line> lines;
 
-    public Line() {
+    public Item() {
     }
 
 
-    public Line(String Item, double Price, int Count, Invoice invoice) {
+    public Item(String Item, double Price, int Count, Invoice invoice) {
       
         this.Item = Item;
-        this.Price = Price;
-        this.Count = Count;
+        this.Fees = Price;
+        this.Countt = Count;
         this.invoice = invoice;
     }
 
-     public double getLineTotall (){
-    return Price * Count;
+     public double getItemCount (){
+    return Fees * Countt;
     }
     public int getCountt() {
-        return Count;
+        return Countt;
     }
 
     public void setCountt(int Count) {
-        this.Count = Count;
+        this.Countt = Count;
     }
 
   
@@ -52,17 +52,17 @@ public class Line {
         this.Item = Item;
     }
 
-    public double getPrice() {
-        return Price;
+    public double getFees() {
+        return Fees;
     }
 
-    public void setPricee(double Price) {
-        this.Price = Price;
+    public void setFees(double Price) {
+        this.Fees = Price;
     }
 
     @Override
     public String toString() {
-        return "Line{" + "Num=" + invoice.getNum() + ", Item=" + Item + ", Price=" + Price + ", Count=" + Count + '}';
+        return "Line{" + "Num=" + invoice.getid() + ", Item=" + Item + ", Price=" + Fees + ", Count=" + Countt + '}';
     }
 
     public Invoice getInvoice() {
@@ -70,9 +70,9 @@ public class Line {
     }
     
     
-    public String getAsCSV(){
+    public String getCSV(){
    
-   return invoice.getNum() + "," + Item + "," + Price + "," + Count;
+   return invoice.getid() + "," + Item + "," + Fees + "," + Countt;
    }
     
 }

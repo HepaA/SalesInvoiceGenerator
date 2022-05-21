@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.salesinvoicemodel;
 
 import java.util.ArrayList;
@@ -12,24 +8,24 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Heba
  */
-public class LinesTableModel extends AbstractTableModel{
+public class ItemsGridModel extends AbstractTableModel{
     
-    private ArrayList<Line> lines;
+    private ArrayList<Item> items;
 private String [] columns = {"No.","Item Name","Item Price","Count","Item Total"};
 
-    public LinesTableModel(ArrayList<Line> lines) {
-        this.lines = lines ;
+    public ItemsGridModel(ArrayList<Item> lines) {
+        this.items = lines ;
     }
 
-    public ArrayList<Line> getLines() {
-        return lines;
+    public ArrayList<Item> getItems() {
+        return items;
     }
     
     
     
     @Override
     public int getRowCount() {
-    return lines.size();  
+    return items.size();  
         }
 
     @Override
@@ -44,13 +40,13 @@ return columns.length;
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-    Line line = lines.get(rowIndex); 
+    Item line = items.get(rowIndex); 
     switch (columnIndex){
-        case 0:return line.getInvoice().getNum();
+        case 0:return line.getInvoice().getid();
         case 1:return line.getItem();
-        case 2:return line.getPrice();
+        case 2:return line.getFees();
          case 3:return line.getCountt();
-          case 4:return line.getLineTotall();
+          case 4:return line.getItemCount();
           default : return "";
     }
     }

@@ -13,71 +13,71 @@ import java.util.ArrayList;
  */
 public class Invoice {
     
-    private int Num;
-    private String Date;
-    private String Name;
-    private String Customer;
-    private ArrayList <Line> lines;
+    private int id;
+    private String daydate;
+ 
+    private String customerName;
+    private ArrayList <Item> items;
     //private double invoiceTotal;
 
   
     public Invoice() {
     }
 
-    public Invoice(int Num, String Date, String Name) {
-        this.Num = Num;
-        this.Date = Date;
-        this.Name = Name;
+    public Invoice(int Num, String Date, String Customer) {
+        this.id = Num;
+        this.daydate = Date;
+        this.customerName = Customer;
         
     }
     
-    public double getInvoiceTotal (){
+    public double getInvoiceAmount (){
         double total = 0.0;
-        for (Line line : getLines()){
-            total +=line.getLineTotall ();
+        for (Item line : getItems()){
+            total +=line.getItemCount ();
                     }
     return total;
     }
 
-     public ArrayList<Line> getLines() {
-        if (lines==null){
-            lines = new ArrayList<>();
+     public ArrayList<Item> getItems() {
+        if (items==null){
+            items = new ArrayList<>();
         }
-        return lines;
+        return items;
     }
     
     public String getcustomerName() {
-        return Name;
+        return customerName;
     }
 
     public void setcustomerName(String Name) {
-        this.Name = Name;
+        this.customerName = customerName;
     }
 
-    public int getNum() {
-        return Num;
+    public int getid() {
+        return id;
     }
 
-    public void setNum(int Num) {
-        this.Num = Num;
+    public void setid(int Num) {
+        this.id = Num;
     }
 
-    public String getDate() {
-        return Date;
+    public String getdaydate() {
+        return daydate;
     }
 
-    public void setDate(String Date) {
-        this.Date = Date;
+    public void setdaydate(String Date) {
+        this.daydate = Date;
     }
 
     @Override
     public String toString() {
-        return "Invoice{" + "Num=" + Num + ", Date=" + Date + ", Customer=" + Customer + '}';
+        return "Invoice{" + "Num=" + id + ", Date=" + daydate + ", Customer=" + customerName + '}';
     }
 
-   public String getAsCSV(){
+   public String getCSV(){
    
-   return Num + "," + Date + "," + Customer;
+   return id + "," + daydate + "," + customerName;
    }
     
     

@@ -7,7 +7,7 @@ package com.salesinvoicedisplay;
 
 import com.salesinvoicecontroller.Controller;
 import com.salesinvoicemodel.Invoice;
-import com.salesinvoicemodel.InvoicesTableModel;
+import com.salesinvoicemodel.InvoicesGridModel;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -36,24 +36,24 @@ public class SalesinvoiceScreen extends javax.swing.JFrame {
 
         jMenuItem1 = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
-        invoiceTable = new javax.swing.JTable();
-        invoiceTable.getSelectionModel().addListSelectionListener(controller);
-        createNewInvoiceButton = new javax.swing.JButton();
-        createNewInvoiceButton.addActionListener(controller);
+        invoiceGrid = new javax.swing.JTable();
+        invoiceGrid.getSelectionModel().addListSelectionListener(controller);
+        newInvoiceButton = new javax.swing.JButton();
+        newInvoiceButton.addActionListener(controller);
         deleteInvoiceButton = new javax.swing.JButton();
         deleteInvoiceButton.addActionListener(controller);
-        invoiceNumberLabel = new javax.swing.JLabel();
-        invoiceDateLabel = new javax.swing.JLabel();
+        invoiceIdLabel = new javax.swing.JLabel();
+        invoicedaydateLabel = new javax.swing.JLabel();
         customerNameLabel = new javax.swing.JLabel();
-        invoiceTotalLabel = new javax.swing.JLabel();
-        invoiceNumberValueLabel = new javax.swing.JLabel();
-        invoiceDateValueLabel = new javax.swing.JLabel();
+        invoiceAmountLabel = new javax.swing.JLabel();
+        invoiceIdValueLabel = new javax.swing.JLabel();
+        invoicedaydateValueLabel = new javax.swing.JLabel();
         customerNameValueLabel = new javax.swing.JLabel();
-        invoiceTotalValueLabel = new javax.swing.JLabel();
+        invoiceAmountValueLabel = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        itemsTable = new javax.swing.JTable();
-        createNewItemButton = new javax.swing.JButton();
-        createNewItemButton.addActionListener(controller);
+        itemsGrid = new javax.swing.JTable();
+        newItemButton = new javax.swing.JButton();
+        newItemButton.addActionListener(controller);
         deleteItemButton = new javax.swing.JButton();
         deleteItemButton.addActionListener(controller);
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -67,7 +67,7 @@ public class SalesinvoiceScreen extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        invoiceTable.setModel(new javax.swing.table.DefaultTableModel(
+        invoiceGrid.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -75,21 +75,21 @@ public class SalesinvoiceScreen extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(invoiceTable);
+        jScrollPane1.setViewportView(invoiceGrid);
 
-        createNewInvoiceButton.setText("Create New Invoice");
+        newInvoiceButton.setText("Create New Invoice");
 
         deleteInvoiceButton.setText("Delete Invoice");
 
-        invoiceNumberLabel.setText("Invoice Number");
+        invoiceIdLabel.setText("Invoice Number");
 
-        invoiceDateLabel.setText("Invoice Date");
+        invoicedaydateLabel.setText("Invoice Date");
 
         customerNameLabel.setText("Customer Name");
 
-        invoiceTotalLabel.setText("Invoice Total");
+        invoiceAmountLabel.setText("Invoice Total");
 
-        itemsTable.setModel(new javax.swing.table.DefaultTableModel(
+        itemsGrid.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -97,12 +97,12 @@ public class SalesinvoiceScreen extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane2.setViewportView(itemsTable);
+        jScrollPane2.setViewportView(itemsGrid);
 
-        createNewItemButton.setText("Create New Item");
-        createNewItemButton.addActionListener(new java.awt.event.ActionListener() {
+        newItemButton.setText("Create New Item");
+        newItemButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                createNewItemButtonActionPerformed(evt);
+                newItemButtonActionPerformed(evt);
             }
         });
 
@@ -131,14 +131,14 @@ public class SalesinvoiceScreen extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(29, 29, 29)
-                        .addComponent(createNewInvoiceButton)
+                        .addComponent(newInvoiceButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(deleteInvoiceButton)
                         .addGap(18, 18, 18)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(42, 42, 42)
-                        .addComponent(createNewItemButton)
+                        .addComponent(newItemButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(deleteItemButton)
                         .addGap(29, 29, 29))
@@ -150,14 +150,14 @@ public class SalesinvoiceScreen extends javax.swing.JFrame {
                                     .addComponent(customerNameLabel)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(invoiceDateLabel)
-                                            .addComponent(invoiceNumberLabel)
-                                            .addComponent(invoiceTotalLabel))
+                                            .addComponent(invoicedaydateLabel)
+                                            .addComponent(invoiceIdLabel)
+                                            .addComponent(invoiceAmountLabel))
                                         .addGap(35, 35, 35)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(invoiceTotalValueLabel)
-                                            .addComponent(invoiceNumberValueLabel)
-                                            .addComponent(invoiceDateValueLabel)
+                                            .addComponent(invoiceAmountValueLabel)
+                                            .addComponent(invoiceIdValueLabel)
+                                            .addComponent(invoicedaydateValueLabel)
                                             .addComponent(customerNameValueLabel))))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -171,38 +171,38 @@ public class SalesinvoiceScreen extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(invoiceNumberLabel)
-                            .addComponent(invoiceNumberValueLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(invoiceIdLabel)
+                            .addComponent(invoiceIdValueLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(invoiceDateLabel)
-                            .addComponent(invoiceDateValueLabel))
+                            .addComponent(invoicedaydateLabel)
+                            .addComponent(invoicedaydateValueLabel))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(customerNameLabel)
                             .addComponent(customerNameValueLabel))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(invoiceTotalLabel)
-                            .addComponent(invoiceTotalValueLabel))
+                            .addComponent(invoiceAmountLabel)
+                            .addComponent(invoiceAmountValueLabel))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(deleteInvoiceButton)
-                    .addComponent(createNewItemButton)
+                    .addComponent(newItemButton)
                     .addComponent(deleteItemButton)
-                    .addComponent(createNewInvoiceButton))
+                    .addComponent(newInvoiceButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void createNewItemButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createNewItemButtonActionPerformed
+    private void newItemButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newItemButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_createNewItemButtonActionPerformed
+    }//GEN-LAST:event_newItemButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -240,34 +240,35 @@ public class SalesinvoiceScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton createNewInvoiceButton;
-    private javax.swing.JButton createNewItemButton;
     private javax.swing.JLabel customerNameLabel;
     private javax.swing.JLabel customerNameValueLabel;
     private javax.swing.JButton deleteInvoiceButton;
     private javax.swing.JButton deleteItemButton;
     private javax.swing.JMenu fileMenuBar;
-    private javax.swing.JLabel invoiceDateLabel;
-    private javax.swing.JLabel invoiceDateValueLabel;
-    private javax.swing.JLabel invoiceNumberLabel;
-    private javax.swing.JLabel invoiceNumberValueLabel;
-    private javax.swing.JTable invoiceTable;
-    private javax.swing.JLabel invoiceTotalLabel;
-    private javax.swing.JLabel invoiceTotalValueLabel;
-    private javax.swing.JTable itemsTable;
+    private javax.swing.JLabel invoiceAmountLabel;
+    private javax.swing.JLabel invoiceAmountValueLabel;
+    private javax.swing.JTable invoiceGrid;
+    private javax.swing.JLabel invoiceIdLabel;
+    private javax.swing.JLabel invoiceIdValueLabel;
+    private javax.swing.JLabel invoicedaydateLabel;
+    private javax.swing.JLabel invoicedaydateValueLabel;
+    private javax.swing.JTable itemsGrid;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JMenuItem loadFileMenuItem;
+    private javax.swing.JButton newInvoiceButton;
+    private javax.swing.JButton newItemButton;
     private javax.swing.JMenuItem saveFileMenuItem;
     // End of variables declaration//GEN-END:variables
 
 private ArrayList<Invoice> invoices;
 private Controller controller = new Controller (this);
-private InvoicesTableModel invoicesTableModel;
+private InvoicesGridModel invoicesGridModel;
 
     public ArrayList<Invoice> getInvoices() {
+        if (invoices == null) invoices = new ArrayList<>();
         return invoices;
     }
 
@@ -275,12 +276,15 @@ private InvoicesTableModel invoicesTableModel;
         this.invoices = invoices;
     }
 
-    public InvoicesTableModel getInvoicesTableModel() {
-        return invoicesTableModel;
+    public InvoicesGridModel getInvoicesGridModel() {
+         if (invoicesGridModel == null) {
+            invoicesGridModel = new InvoicesGridModel(getInvoices());
+        }
+        return invoicesGridModel;
     }
 
-    public void setInvoicesTableModel(InvoicesTableModel invoicesTableModel) {
-        this.invoicesTableModel = invoicesTableModel;
+    public void setInvoicesGridModel(InvoicesGridModel invoicesTableModel) {
+        this.invoicesGridModel = invoicesTableModel;
     }
 
     public JLabel getcustomerNameValueLabel() {
@@ -291,54 +295,55 @@ private InvoicesTableModel invoicesTableModel;
         this.customerNameValueLabel = customerNameValueLabel;
     }
 
-    public JLabel getinvoiceDateValueLabel() {
-        return invoiceDateValueLabel;
+    public JLabel getinvoicedaydateValueLabel() {
+        return invoicedaydateValueLabel;
     }
 
-    public void setinvoiceDateValueLabel(JLabel invoiceDateValueLabel) {
-        this.invoiceDateValueLabel = invoiceDateValueLabel;
+    public void setinvoicedaydateValueLabel(JLabel invoiceDateValueLabel) {
+        this.invoicedaydateValueLabel = invoiceDateValueLabel;
     }
 
-    public JLabel getinvoiceNumberValueLabel() {
-        return invoiceNumberValueLabel;
+    public JLabel getinvoiceIdValueLabel() {
+        return invoiceIdValueLabel;
     }
 
-    public void setinvoiceNumberValueLabel(JLabel invoiceNumberValueLabel) {
-        this.invoiceNumberValueLabel = invoiceNumberValueLabel;
+    public void setinvoiceIdValueLabel(JLabel invoiceNumberValueLabel) {
+        this.invoiceIdValueLabel = invoiceNumberValueLabel;
     }
 
-    public JTable getInvoiTable() {
-        return invoiceTable;
+    public JTable getInvoGrid() {
+        return invoiceGrid;
     }
 
-    public void setInvoiceTable(JTable invoiceTable) {
-        this.invoiceTable = invoiceTable;
+    public void setInvoiceGrid(JTable invoiceTable) {
+        this.invoiceGrid = invoiceTable;
     }
 
-    public JLabel getinvoiceTotalValueLabel() {
-        return invoiceTotalValueLabel;
+    public JLabel getinvoiceAmountValueLabel() {
+        return invoiceAmountValueLabel;
     }
 
-    public void setinvoiceTotalValueLabel(JLabel invoiceTotalValueLabel) {
-        this.invoiceTotalValueLabel = invoiceTotalValueLabel;
+    public void setinvoiceAmountValueLabel(JLabel invoiceTotalValueLabel) {
+        this.invoiceAmountValueLabel = invoiceTotalValueLabel;
     }
 
-    public JTable getItemsTable() {
-        return itemsTable;
+    public JTable getItemsGrid() {
+        return itemsGrid;
     }
 
-    public void setItemsTable(JTable itemsTable) {
-        this.itemsTable = itemsTable;
+    public void setItemsGrid(JTable itemsTable) {
+        this.itemsGrid = itemsTable;
     }
 
-    public Controller getController() {
+    public Controller getcontroller() {
         return controller;
     }
     
-    public int getNextInvoiceNum(){
+    public int getNextInvoiceId(){
     int num = 0;
-    for (Invoice invoice : invoices){
-    if (invoice.getNum()>num)num = invoice.getNum();
+    for (Invoice invoice : getInvoices()){
+    if (invoice.getid()>num)
+            num = invoice.getid();
     }
     return ++num;
     }

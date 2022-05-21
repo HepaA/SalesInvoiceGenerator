@@ -5,13 +5,13 @@
  */
 package com.salesinvoicecontroller;
 
-import com.salesinvoicedisplay.InvoiceDialog;
-import com.salesinvoicedisplay.LineDialog;
+import com.salesinvoicedisplay.invodialoge;
+import com.salesinvoicedisplay.itemdialoge;
 import com.salesinvoicedisplay.SalesinvoiceScreen;
 import com.salesinvoicemodel.Invoice;
-import com.salesinvoicemodel.InvoicesTableModel;
-import com.salesinvoicemodel.Line;
-import com.salesinvoicemodel.LinesTableModel;
+import com.salesinvoicemodel.InvoicesGridModel;
+import com.salesinvoicemodel.Item;
+import com.salesinvoicemodel.ItemsGridModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -29,8 +29,8 @@ import javax.swing.event.ListSelectionListener;
 public class Controller implements ActionListener, ListSelectionListener{
     
     private SalesinvoiceScreen screen;
-    private InvoiceDialog invoiceDialog;
-    private LineDialog lineDialog;
+    private invodialoge invoDialoge;
+    private itemdialoge itemDialoge;
     
     public Controller (SalesinvoiceScreen screen){
         this.screen=screen;
@@ -41,34 +41,34 @@ public class Controller implements ActionListener, ListSelectionListener{
         System.out.println(actionCommand);
         switch (actionCommand){
             case"Load File":
-                loadfile();
+                loadFile();
             break;
             case"Save File":
-                savefile();
+                saveFile();
             break;
             case"Create New Invoice":
-                createnewinvoice();
+                newInvoice();
             break;
             case"Delete Invoice":
-                deleteinvoice();
+                deleteInvoice();
             break;
             case"Create New Item":
-                createnewitem();
+                newItem();
             break;
             case"Delete Item":
-                deleteitem();
+                deleteItem();
             break;
              case"createInvoiceCancel":
-                createInvoiceCancel();
+                invoCancel();
             break;
             case"createInvoiceOK":
-                createInvoiceOK();
+                invoOK();
             break;
              case"createLineOK":
-                createLineOK();
+                itemOK();
             break;
             case"createLineCancel":
-                createLineCancel();
+                itemCancel();
             break;
         }
     }
@@ -76,22 +76,22 @@ public class Controller implements ActionListener, ListSelectionListener{
     
      @Override
     public void valueChanged(ListSelectionEvent e) {
-    int selectedIndex = screen.getInvoiTable().getSelectedRow();
+    int selectedIndex = screen.getInvoGrid().getSelectedRow();
     if (selectedIndex != -1){
     System.out.println("You have selected row: " + selectedIndex);
     Invoice currentInvoice = screen.getInvoices().get(selectedIndex);
-    screen.getinvoiceNumberValueLabel().setText(""+currentInvoice.getNum());
-    screen.getinvoiceDateValueLabel().setText(currentInvoice.getDate());
+    screen.getinvoiceIdValueLabel().setText(""+currentInvoice.getid());
+    screen.getinvoicedaydateValueLabel().setText(currentInvoice.getdaydate());
     screen.getcustomerNameValueLabel().setText(currentInvoice.getcustomerName());
-    screen.getinvoiceTotalValueLabel().setText(""+currentInvoice.getInvoiceTotal());
-    LinesTableModel linesTableModel = new LinesTableModel(currentInvoice.getLines());
-      screen.getItemsTable().setModel(linesTableModel);
+    screen.getinvoiceAmountValueLabel().setText(""+currentInvoice.getInvoiceAmount());
+    ItemsGridModel linesTableModel = new ItemsGridModel(currentInvoice.getItems());
+      screen.getItemsGrid().setModel(linesTableModel);
       linesTableModel.fireTableDataChanged();
     }
     }
     
 
-    private void loadfile() {
+    private void loadFile() {
         JFileChooser fc = new JFileChooser(); 
         try{
         int res = fc.showOpenDialog(screen);
@@ -99,7 +99,6 @@ public class Controller implements ActionListener, ListSelectionListener{
             File headerFile = fc.getSelectedFile();
             Path headerPath = Paths.get(headerFile.getAbsolutePath());
             List<String> headerLines = Files.readAllLines(headerPath);
-            System.out.println("Invoices have been read");
             ArrayList<Invoice>invoicesArray = new ArrayList<>();
             for (String headerLine: headerLines){
             String [] headerParts = headerLine.split(",");
@@ -109,13 +108,11 @@ public class Controller implements ActionListener, ListSelectionListener{
             Invoice invoice = new Invoice (invoiceNumber,invoiceDate,customerName); 
             invoicesArray.add(invoice);
             }
-            System.out.println("Check point");
             res = fc.showOpenDialog(screen);
             if (res == JFileChooser.APPROVE_OPTION){
             File lineFile = fc.getSelectedFile();
             Path linePath = Paths.get(lineFile.getAbsolutePath());
             List<String>lineLines = Files.readAllLines(linePath);
-            System.out.println("Lines have been read");
             for (String lineLine : lineLines){
             String lineParts [] = lineLine.split(",");
             int invoiceNum = Integer.parseInt(lineParts[0]);
@@ -124,22 +121,21 @@ public class Controller implements ActionListener, ListSelectionListener{
             int count = Integer.parseInt(lineParts[3]);
             Invoice inv = null;
             for (Invoice invoice :invoicesArray){
-            if (invoice.getNum()==invoiceNum){
+            if (invoice.getid()==invoiceNum){
                 inv = invoice;
                 break;
             }
             }
-            Line line = new Line (itemName,itemPrice,count, inv);
-            inv.getLines().add(line);
+            Item line = new Item (itemName,itemPrice,count, inv);
+            inv.getItems().add(line);
             }
-            System.out.println("Check point");
             }
             
             screen.setInvoices(invoicesArray);
-            InvoicesTableModel invoicesTableModel = new InvoicesTableModel (invoicesArray);
-            screen.setInvoicesTableModel(invoicesTableModel);
-            screen.getInvoiTable().setModel(invoicesTableModel);
-            screen.getInvoicesTableModel().fireTableDataChanged();
+            InvoicesGridModel invoicesTableModel = new InvoicesGridModel(invoicesArray);
+            screen.setInvoicesGridModel(invoicesTableModel);
+            screen.getInvoGrid().setModel(invoicesTableModel);
+            screen.getInvoicesGridModel().fireTableDataChanged();
             
         }
         }catch (IOException ex){
@@ -147,17 +143,17 @@ public class Controller implements ActionListener, ListSelectionListener{
     }
     }
 
-    private void savefile() {
+    private void saveFile() {
         ArrayList<Invoice> invoices = screen.getInvoices();
         String headers = "";
         String lines = "";
         for (Invoice invoice : invoices){
-        String invCSV = invoice.getAsCSV();
+        String invCSV = invoice.getCSV();
         headers += invCSV;
         headers += "\n";
         
-        for (Line line : invoice.getLines()){
-        String lineCSV = line.getAsCSV();
+        for (Item line : invoice.getItems()){
+        String lineCSV = line.getCSV();
         lines += lineCSV;
         lines += "\n";
         }
@@ -186,81 +182,80 @@ public class Controller implements ActionListener, ListSelectionListener{
         }
         }
 
-    private void createnewinvoice() {
+    private void newInvoice() {
         
-        invoiceDialog = new InvoiceDialog(screen);
-        invoiceDialog.setVisible(true);
+        invoDialoge = new invodialoge(screen);
+        invoDialoge.setVisible(true);
         }
 
-    private void deleteinvoice() {
-        int selectedRow = screen.getInvoiTable().getSelectedRow();
+    private void deleteInvoice() {
+        int selectedRow = screen.getInvoGrid().getSelectedRow();
         if (selectedRow != -1){
             screen.getInvoices().remove(selectedRow);
-            screen.getInvoicesTableModel().fireTableDataChanged();
+            screen.getInvoicesGridModel().fireTableDataChanged();
         }
         }
 
-    private void createnewitem() {
-        lineDialog = new LineDialog(screen);
-        lineDialog.setVisible(true);
+    private void newItem() {
+        itemDialoge = new itemdialoge(screen);
+        itemDialoge.setVisible(true);
         }
 
-    private void deleteitem() {
-        int selectedRow = screen.getItemsTable().getSelectedRow();
+    private void deleteItem() {
+        int selectedRow = screen.getItemsGrid().getSelectedRow();
         if (selectedRow != -1){
-            LinesTableModel linesTableModel = (LinesTableModel) screen.getItemsTable().getModel();
-            linesTableModel.getLines().remove(selectedRow);
+            ItemsGridModel linesTableModel = (ItemsGridModel) screen.getItemsGrid().getModel();
+            linesTableModel.getItems().remove(selectedRow);
             linesTableModel.fireTableDataChanged();
-            screen.getInvoicesTableModel().fireTableDataChanged();
+            screen.getInvoicesGridModel().fireTableDataChanged();
         }
         }
 
-    private void createInvoiceCancel() {
-        invoiceDialog.setVisible(false);
-        invoiceDialog.dispose();
-        invoiceDialog = null;
+    private void invoCancel() {
+        invoDialoge.setVisible(false);
+        invoDialoge.dispose();
+        invoDialoge = null;
         }
 
     
-    private void createInvoiceOK() {
-        System.out.println(invoiceDialog);
-        String date = invoiceDialog.getInvDateField().getText();
-        String customer = invoiceDialog.getCustNameField().getText();
-        int num = screen.getNextInvoiceNum();
+    private void invoOK() {
+        String date = invoDialoge.getInvoicedaydateField().getText();
+        String customer = invoDialoge.getCustomerNameField().getText();
+        int num = screen.getNextInvoiceId();
         
         Invoice invoice = new Invoice (num,date,customer);
         screen.getInvoices().add(invoice);
-        screen.getInvoicesTableModel().fireTableDataChanged();
-        invoiceDialog.setVisible(false);
-        invoiceDialog.dispose();
-        invoiceDialog = null;
+        screen.getInvoicesGridModel().fireTableDataChanged();
+        invoDialoge.setVisible(false);
+        invoDialoge.dispose();
+        invoDialoge = null;
         }
 
-    private void createLineOK() {
-        String item = lineDialog.getItemNameField().getText();
-        String countStr = lineDialog.getItemNameField().getText();
-        String priceStr = lineDialog.getItemNameField().getText();
+    private void itemOK() {
+        String item = itemDialoge.getItemNameField().getText();
+        String countStr = itemDialoge.getItemCountField().getText();
+        String priceStr = itemDialoge.getItemFeesField().getText();
         int count = Integer.parseInt(countStr);
         double price = Double.parseDouble(priceStr);
-        int selectedInvoice = screen.getInvoiTable().getSelectedRow();
+        int selectedInvoice = screen.getInvoGrid().getSelectedRow();
         if (selectedInvoice != -1){
             Invoice invoice = screen.getInvoices().get(selectedInvoice);
-            Line line = new Line(item, price, count, invoice);
-            invoice.getLines().add(line);
-            LinesTableModel linesTableModel = (LinesTableModel)screen.getItemsTable().getModel();
+            Item line = new Item(item, price, count, invoice);
+            invoice.getItems().add(line);
+            ItemsGridModel linesTableModel = (ItemsGridModel)screen.getItemsGrid().getModel();
             linesTableModel.fireTableDataChanged();
-            screen.getInvoicesTableModel().fireTableDataChanged();
+            screen.getInvoicesGridModel().fireTableDataChanged();
         }
         
-        lineDialog.setVisible(false);
-        lineDialog.dispose();
-        lineDialog = null;
+        itemDialoge.setVisible(false);
+        itemDialoge.dispose();
+        itemDialoge = null;
         }
 
-    private void createLineCancel() {
-        lineDialog.setVisible(false);
-        lineDialog.dispose();
-        lineDialog = null;
+    private void itemCancel() {
+        itemDialoge.setVisible(false);
+        itemDialoge.dispose();
+        itemDialoge = null;
         }
 
    

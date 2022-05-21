@@ -12,11 +12,11 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Heba
  */
-public class InvoicesTableModel extends AbstractTableModel {
+public class InvoicesGridModel extends AbstractTableModel {
 
     private ArrayList<Invoice> invoices;
 private String[] columns = {"No.", "Date","Customer","Total"};
-    public InvoicesTableModel(ArrayList<Invoice> invoices) {
+    public InvoicesGridModel(ArrayList<Invoice> invoices) {
         this.invoices = invoices;
     }
 
@@ -43,32 +43,17 @@ private String[] columns = {"No.", "Date","Customer","Total"};
     public Object getValueAt(int rowIndex, int columnIndex) {  
         Invoice invoice = invoices.get(rowIndex);
         switch (columnIndex){
-            case 0:return invoice.getNum();
-            case 1:return invoice.getDate();
+            case 0:return invoice.getid();
+            case 1:return invoice.getdaydate();
             case 2:return invoice.getcustomerName();
-            case 3:return invoice.getInvoiceTotal();
+            case 3:return invoice.getInvoiceAmount();
             default: return"";
         }
         
         
     }
 
-    public ArrayList<Invoice> getInvoices() {
-        return invoices;
-    }
 
-    public void setInvoices(ArrayList<Invoice> invoices) {
-        this.invoices = invoices;
-    }
-
-    public String[] getColumns() {
-        return columns;
-    }
-
-    public void setColumns(String[] columns) {
-        this.columns = columns;
-    }
-    
 }
     
 
