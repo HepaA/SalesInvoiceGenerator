@@ -269,6 +269,7 @@ private InvoicesGridModel invoicesGridModel;
 
     public ArrayList<Invoice> getInvoices() {
         if (invoices == null) invoices = new ArrayList<>();
+        System.out.println(invoices);
         return invoices;
     }
 
@@ -280,6 +281,7 @@ private InvoicesGridModel invoicesGridModel;
          if (invoicesGridModel == null) {
             invoicesGridModel = new InvoicesGridModel(getInvoices());
         }
+         System.out.println(invoices);
         return invoicesGridModel;
     }
 
@@ -288,6 +290,7 @@ private InvoicesGridModel invoicesGridModel;
     }
 
     public JLabel getcustomerNameValueLabel() {
+
         return customerNameValueLabel;
     }
 
