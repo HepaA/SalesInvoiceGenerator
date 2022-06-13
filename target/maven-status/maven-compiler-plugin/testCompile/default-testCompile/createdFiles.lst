@@ -1,0 +1,4 @@
+com\automation\step_definitions\searchStepDefinitions.class
+com\automation\runners\TestRunner.class
+com\automation\step_definitions\Hooks.class
+com\automation\step_definitions\loginStepDefinitions.class
